@@ -107,9 +107,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
  800015a:	f000 f8a9 	bl	80002b0 <MX_GPIO_Init>
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   // To do ex2
 
   int status_RED = 5;
