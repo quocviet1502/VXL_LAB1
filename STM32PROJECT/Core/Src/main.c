@@ -91,10 +91,54 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   // To do ex2
-  int count_RED;
+
+  int status_RED = 5;
+  int status_YELLOW = 2;
+  int status_GREEN = 3;
+  int status_led = status_RED;
+  int count_on = 1 ;
   while (1)
   {
+	  if (status_led == status_RED)
+	  {
+		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET); // LED_RED turn on
+		  HAL_GPIO_WritePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin , GPIO_PIN_SET); // LED_YELLOW turn off
+		  HAL_GPIO_WritePin ( LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET); // LED_GREEN turn off
+		  count_on++;
+		  if ( count_on == status_RED) //delay 5s
+		  {
+			  status_led = status_YELLOW;
+			  count_on = 1;
+		  }
+	  }
+	  else if( status_led == status_YELLOW)
+		{
+		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET); // LED_RED turn off
+		  HAL_GPIO_WritePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin , GPIO_PIN_RESET); // LED_YELLOW turn on
+		  HAL_GPIO_WritePin ( LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET); // LED_GREEN turn off
+		  count_on++ ;
+		  if ( count_on == status_YELLOW) // delay 2s
+		  {
+			  status_led = status_GREEN;
+			  count_on = 1;
+		  }
+		}
+	  else if ( status_led == status_GREEN)
+		{
+		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);  // LED_RED turn off
+		  HAL_GPIO_WritePin ( LED_YELLOW_GPIO_Port, LED_YELLOW_Pin , GPIO_PIN_SET); // LED_YELLOW turn off
+		  HAL_GPIO_WritePin ( LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET); // LED_GREEN turn on
+		  count_on++ ;
+		  if ( count_on == status_GREEN) // delay 3s
+		  {
+			  status_led = status_RED;
+			  count_on = 1 ;
+		  }
+		}
+	  HAL_Delay( 1000 );
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
