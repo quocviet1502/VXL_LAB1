@@ -47,6 +47,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,6 +84,7 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -92,60 +94,102 @@ int main(void)
   // To DO EX3
 
 
-    int red1 = 5;
-    int red2 = 5;
-      while (1)
-      {
-  //    	 Neu: xanh1 + vang1 -> do2
-  //    	 Neu: do1 -> xanh2 + vang2
-      	if (red1){
-
-      		HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, GPIO_PIN_RESET);
-
-      		HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, GPIO_PIN_SET);
-      		HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_RESET);
-      		HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_RESET);
-      		if(red1 >= 3){
-      			HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_RESET);
-      			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_SET);
-      		}
-      		else if (red1 > 0){
-      			HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_SET);
-      			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_RESET);
-      		}
-      		else {
-      			red2 = 5;
-      		}
-      		red1 = red1 - 1;
-      	}
-      	else {
-
-      		HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, GPIO_PIN_RESET);
-      		HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, GPIO_PIN_SET);
-      		HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_RESET);
-      		HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_RESET);
-
-      		if(red1 >= 3){
-      			HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_RESET);
-      			HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_SET);
-      		}
-      		else if (red1 > 0){
-      			HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_SET);
-      			HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_RESET);
-      		}
-      		else {
-      			red1 = 5;
-      		}
-      		red2 = red2 - 1;
-      	}
-
-    	  HAL_Delay(1000);
-      /* USER CODE END WHILE */
-
-      /* USER CODE BEGIN 3 */
-      }
-    /* USER CODE END 3 */
+//    int red1 = 5;
+//    int red2 = 5;
+//      while (1)
+//      {
+//      	if (red1){
+//
+//      		HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, GPIO_PIN_RESET);
+//
+//      		HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, GPIO_PIN_SET);
+//      		HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_RESET);
+//      		HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_RESET);
+//      		if(red1 >= 3){
+//      			HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_RESET);
+//      			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_SET);
+//      		}
+//      		else if (red1 > 0){
+//      			HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_SET);
+//      			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_RESET);
+//      		}
+//      		else {
+//      			red2 = 5;
+//      		}
+//      		red1 = red1 - 1;
+//      	}
+//      	else {
+//
+//      		HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, GPIO_PIN_RESET);
+//      		HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, GPIO_PIN_SET);
+//      		HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, GPIO_PIN_RESET);
+//      		HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, GPIO_PIN_RESET);
+//
+//      		if(red1 >= 3){
+//      			HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_RESET);
+//      			HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_SET);
+//      		}
+//      		else if (red1 > 0){
+//      			HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, GPIO_PIN_SET);
+//      			HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, GPIO_PIN_RESET);
+//      		}
+//      		else {
+//      			red1 = 5;
+//      		}
+//      		red2 = red2 - 1;
+//      	}
+//
+//    	  HAL_Delay(1000);
+//    /* USER CODE END WHILE */
+//
+//    /* USER CODE BEGIN 3 */
+//      }
   /* USER CODE END 3 */
+  int led_red = 5;
+  int led_yellow = 2;
+  int led_green = 3;
+  int count_on_red = 1;
+  int count_on_yellow = 1;
+  int count_on_green = 1;
+  int status_led = led_red;
+  while(1)
+  {
+	  if(  status_led == led_red)
+	  {
+		  HAL_GPIO_WritePin( LED_RED1_GPIO_Port , LED_RED1_Pin , GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_SET);
+		  HAL_GPIO_WritePin( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_SET);
+		  HAL_GPIO_WritePin( LED_RED2_GPIO_Port , LED_RED2_Pin , GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET);
+		  HAL_GPIO_WritePin( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_SET);
+		  count_on_red ++;
+	  }
+	   if ( count_on_red == led_red)
+		  {
+			  HAL_GPIO_WritePin( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin( LED_RED1_GPIO_Port , LED_RED1_Pin , GPIO_PIN_SET);
+			  HAL_GPIO_WritePin( LED_RED2_GPIO_Port , LED_RED2_Pin , GPIO_PIN_SET);
+			  count_on_yellow ++;
+			  count_on_red = 1;
+			  status_led = 1;
+		  }
+	  if(count_on_yellow == led_yellow)
+			  {
+				  HAL_GPIO_WritePin( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_SET);
+				  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET);
+				  count_on_green++;
+				  count_on_yellow = 1;
+			  }
+	  if( count_on_green == led_green)
+				  {
+					  count_on_green = 1 ;
+					  status_led = led_red;
+				  }
+	  HAL_Delay(1000);
+		  }
 }
 
 /**
@@ -181,6 +225,33 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LED_RED1_Pin|LED_YELLOW1_Pin|LED_GREEN1_Pin|LED_RED2_Pin
+                          |LED_YELLOW2_Pin|LED_GREEN2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LED_RED1_Pin LED_YELLOW1_Pin LED_GREEN1_Pin LED_RED2_Pin
+                           LED_YELLOW2_Pin LED_GREEN2_Pin */
+  GPIO_InitStruct.Pin = LED_RED1_Pin|LED_YELLOW1_Pin|LED_GREEN1_Pin|LED_RED2_Pin
+                          |LED_YELLOW2_Pin|LED_GREEN2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
