@@ -81,7 +81,7 @@ enum modeLed {
 	RED1, YELLOW1, GREEN1, RED2, YELLOW2, GREEN2
 } ;
 
-
+// ham bat tat led giao thong
 void turnOnLight(enum modeLed led){
  800014c:	b580      	push	{r7, lr}
  800014e:	b082      	sub	sp, #8
@@ -227,7 +227,7 @@ void turnOnLight(enum modeLed led){
 08000244 <display7SEG>:
 
 
-
+// Ham led 7 doan
 void display7SEG( int num)
 {
  8000244:	b580      	push	{r7, lr}

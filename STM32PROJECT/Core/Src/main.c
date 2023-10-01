@@ -42,6 +42,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+//TO do EX4
+
 enum stateOfLight {
 	RED2_GREEN1, RED2_YELLOW1, RED1_GREEN2, RED1_YELLOW2
 } currentState = RED2_GREEN1;
@@ -50,7 +52,7 @@ enum modeLed {
 	RED1, YELLOW1, GREEN1, RED2, YELLOW2, GREEN2
 } ;
 
-
+// ham bat tat led giao thong
 void turnOnLight(enum modeLed led){
 	switch (led){
 		case RED1: {
@@ -95,7 +97,7 @@ void turnOnLight(enum modeLed led){
 }
 
 
-
+// Ham led 7 doan
 void display7SEG( int num)
 {
 	if ( num == 0)
