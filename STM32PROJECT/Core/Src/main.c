@@ -1,33 +1,33 @@
 /* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+///**
+//  ******************************************************************************
+//  * @file           : main.c
+//  * @brief          : Main program body
+//  ******************************************************************************
+//  * @attention
+//  *
+//  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
+//  * All rights reserved.</center></h2>
+//  *
+//  * This software component is licensed by ST under BSD 3-Clause license,
+//  * the "License"; You may not use this file except in compliance with the
+//  * License. You may obtain a copy of the License at:
+//  *                        opensource.org/licenses/BSD-3-Clause
+//  *
+//  ******************************************************************************
+//  */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+//
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+//
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -36,24 +36,65 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+//
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 
-/* USER CODE END PV */
+// TO do Ex5
+enum stateOfLight {
+	RED2_GREEN1, RED2_YELLOW1, RED1_GREEN2, RED1_YELLOW2
+} currentState = RED2_GREEN1;
 
-/* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-/* USER CODE BEGIN PFP */
+enum modeLed {
+	RED1, YELLOW1, GREEN1, RED2, YELLOW2, GREEN2
+} ;
 
-/* USER CODE END PFP */
+// ham bat tat led giao thong
+void turnOnLight(enum modeLed led){
+	switch (led){
+		case RED1: {
+			HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, GPIO_PIN_SET);
+			break;
+		}
+		case YELLOW1: {
+			HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, GPIO_PIN_RESET);
+			break;
+		}
+		case GREEN1: {
+			HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, GPIO_PIN_SET);
+			break;
+		}
+		case RED2: {
+			HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_SET);
+			break;
+		}
+		case YELLOW2: {
+			HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_SET);
+			break;
+		}
 
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
+		default : {
+			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, GPIO_PIN_SET);
+		}
+	}
+}
+
+
 // Ham led 7 doan
 void display7SEG( int num)
 {
@@ -158,6 +199,19 @@ void display7SEG( int num)
 		HAL_GPIO_WritePin( g_GPIO_Port, g_Pin , GPIO_PIN_RESET);
 	}
 }
+//
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+/* USER CODE BEGIN PFP */
+//
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+//
 /* USER CODE END 0 */
 
 /**
@@ -167,7 +221,7 @@ void display7SEG( int num)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+//
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -176,89 +230,79 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+//
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+//
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+//
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int count = 3;
+  int num = 5;
+      while (1)
+      {
+      	if (num <= 0) num = 5 ;
+      	display7SEG( num-- );
 
-  int led_red = 5;
-  int led_yellow = 2;
-  int led_green = 3;
-  int count_on_yellow1 = 1;
-  int count_on_green1 = 1;
-  int count_on_yellow2 = 1;
-  int count_on_green2 = 1;
-  int status_led = led_red;
-  int num = 0;
-  while(1)
-  {
-	  if (num >= 10) num = 0 ;
-	  display7SEG( num++ );
+    	  switch(currentState){
+    	  case RED2_GREEN1: {
+    		  turnOnLight(RED2);
+    		  turnOnLight(GREEN1);
+    		  count--;
+    		  if (count <= 0){
+    			  count = 2;
+    			  currentState = RED2_YELLOW1;
+    		  }
+    		  break;
+    	  }
+    	  case RED2_YELLOW1: {
+    		  turnOnLight(RED2);
+    		  turnOnLight(YELLOW1);
+    		  count--;
+    		  if (count <= 0){
+    		  	  count = 3;
+    		  	  currentState = RED1_GREEN2;
+    		  }
+    		  break;
+    	  }
+    	  case RED1_GREEN2: {
+    		  turnOnLight(RED1);
+    		  turnOnLight(GREEN2);
+    		  count--;
+    		  if (count <= 0){
+    		  	  count = 2;
+    		  	  currentState = RED1_YELLOW2;
+    		  }
+    		  break;
+    	  }
+    	  default : {
+    		  turnOnLight(RED1);
+    		  turnOnLight(YELLOW2);
+    		  count--;
+    		  if (count <= 0){
+    			  count = 3;
+    			  currentState = RED2_GREEN1;
+    		  }
+    	  }
 
-	  if(  status_led == led_red)
-	  {
-		  HAL_GPIO_WritePin( LED_RED1_GPIO_Port , LED_RED1_Pin , GPIO_PIN_RESET);
-		  HAL_GPIO_WritePin( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_SET);
-		  HAL_GPIO_WritePin( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_SET);
-		  HAL_GPIO_WritePin( LED_RED2_GPIO_Port , LED_RED2_Pin , GPIO_PIN_SET);
-		  count_on_green2++;
-		  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET);
-		  HAL_GPIO_WritePin( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_RESET);
-		  count_on_yellow1 = 1;
-	  }
-	   if ( count_on_green2 == led_green)
-		  {
-			  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_RESET);
-			  HAL_GPIO_WritePin( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_SET);
-			  count_on_yellow2++;
+    	  }
 
-			  status_led = 1;
-		  }
+    	  HAL_Delay(1000);
+    /* USER CODE END WHILE */
 
-	   if ( count_on_yellow2 == led_yellow)
-			  {
-
-				  HAL_GPIO_WritePin( LED_RED1_GPIO_Port , LED_RED1_Pin , GPIO_PIN_SET);
-				  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET);
-				  HAL_GPIO_WritePin( LED_RED2_GPIO_Port , LED_RED2_Pin , GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_RESET);
-				  count_on_green2 = 1;
-				  count_on_green1++;
-
-			  }
-	   if( count_on_green1 == led_green)
-			  {
-				  HAL_GPIO_WritePin( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_SET);
-				  HAL_GPIO_WritePin( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_RESET);
-				  count_on_yellow1++;
-				  count_on_yellow2 = 1;
-
-			  }
-	   if (count_on_yellow1 == led_yellow)
-			  {
-				  count_on_yellow2 = 1;
-				  count_on_green2 = 1;
-				  count_on_green1 = 1;
-				  status_led = led_red;
-			  }
-
-	   HAL_Delay(3000);
-
-  }
+    /* USER CODE BEGIN 3 */
+      }
   /* USER CODE END 3 */
 }
 
@@ -308,24 +352,38 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED1_Pin|LED_YELLOW1_Pin|LED_GREEN1_Pin|LED_RED2_Pin
-                          |LED_YELLOW2_Pin|LED_GREEN2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RED1_Pin|YELLOW1_Pin|GREEN1_Pin|RED2_Pin
+                          |YELLOW2_Pin|GREEN2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED1_Pin LED_YELLOW1_Pin LED_GREEN1_Pin LED_RED2_Pin
-                           LED_YELLOW2_Pin LED_GREEN2_Pin */
-  GPIO_InitStruct.Pin = LED_RED1_Pin|LED_YELLOW1_Pin|LED_GREEN1_Pin|LED_RED2_Pin
-                          |LED_YELLOW2_Pin|LED_GREEN2_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, a_Pin|b_Pin|c_Pin|d_Pin
+                          |e_Pin|f_Pin|g_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : RED1_Pin YELLOW1_Pin GREEN1_Pin RED2_Pin
+                           YELLOW2_Pin GREEN2_Pin */
+  GPIO_InitStruct.Pin = RED1_Pin|YELLOW1_Pin|GREEN1_Pin|RED2_Pin
+                          |YELLOW2_Pin|GREEN2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : a_Pin b_Pin c_Pin d_Pin
+                           e_Pin f_Pin g_Pin */
+  GPIO_InitStruct.Pin = a_Pin|b_Pin|c_Pin|d_Pin
+                          |e_Pin|f_Pin|g_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
-
+//
 /* USER CODE END 4 */
 
 /**
@@ -335,11 +393,11 @@ static void MX_GPIO_Init(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+//  /* User can add his own implementation to report the HAL error return state */
+//  __disable_irq();
+//  while (1)
+//  {
+//  }
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -354,8 +412,8 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+//  /* User can add his own implementation to report the file name and line number,
+//     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
