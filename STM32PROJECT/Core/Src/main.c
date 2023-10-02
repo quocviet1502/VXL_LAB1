@@ -278,7 +278,7 @@ int main(void)
   int num = 0;
   while (1)
   {
-	  if ( num >= 12 )
+	  if ( num > 12 )
 	  {
 		  num = 0;
 	  }
