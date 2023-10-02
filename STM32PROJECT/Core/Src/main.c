@@ -63,9 +63,7 @@ void turnOnLight(enum modeLed led){
 		}
 		case YELLOW1: {
 			HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, GPIO_PIN_RESET);
-
 			HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, GPIO_PIN_RESET);
-
 			HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, GPIO_PIN_RESET);
 			break;
 		}
@@ -87,7 +85,6 @@ void turnOnLight(enum modeLed led){
 			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_SET);
 			break;
 		}
-
 		default : {
 			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, GPIO_PIN_SET);
@@ -95,8 +92,6 @@ void turnOnLight(enum modeLed led){
 		}
 	}
 }
-
-
 // Ham led 7 doan
 void display7SEG( int num)
 {
@@ -201,7 +196,6 @@ void display7SEG( int num)
 		HAL_GPIO_WritePin( g_GPIO_Port, g_Pin , GPIO_PIN_RESET);
 	}
 }
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -254,10 +248,11 @@ int main(void)
   int num = 0;
     while (1)
     {
+    	//led 7 doan
     	if (num >= 10) num = 0 ;
     	display7SEG( num++ );
-
-  	  switch(currentState){
+    	// den giao thong
+  	switch(currentState){
   	  case RED2_GREEN1: {
   		  turnOnLight(RED2);
   		  turnOnLight(GREEN1);
@@ -298,7 +293,7 @@ int main(void)
   		  }
   	  }
 
-  	  }
+  	 }
 
   	  HAL_Delay(1000);
     /* USER CODE END WHILE */

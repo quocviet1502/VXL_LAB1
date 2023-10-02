@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000155c3  00000000  00000000  00024708  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000468d  00000000  00000000  00039ccb  2**0
+ 17 .debug_line   0000468f  00000000  00000000  00039ccb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000799c1  00000000  00000000  0003e358  2**0
+ 18 .debug_str    000799c1  00000000  00000000  0003e35a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b7d19  2**0
+ 19 .comment      00000053  00000000  00000000  000b7d1b  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d7c  00000000  00000000  000b7d6c  2**2
+ 20 .debug_frame  00000d7c  00000000  00000000  000b7d70  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -125,13 +125,11 @@ void turnOnLight(enum modeLed led){
  800019a:	2104      	movs	r1, #4
  800019c:	4828      	ldr	r0, [pc, #160]	; (8000240 <turnOnLight+0xf4>)
  800019e:	f000 fe57 	bl	8000e50 <HAL_GPIO_WritePin>
-
 			HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, GPIO_PIN_RESET);
  80001a2:	2200      	movs	r2, #0
  80001a4:	2102      	movs	r1, #2
  80001a6:	4826      	ldr	r0, [pc, #152]	; (8000240 <turnOnLight+0xf4>)
  80001a8:	f000 fe52 	bl	8000e50 <HAL_GPIO_WritePin>
-
 			HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, GPIO_PIN_RESET);
  80001ac:	2200      	movs	r2, #0
  80001ae:	2108      	movs	r1, #8
@@ -197,7 +195,6 @@ void turnOnLight(enum modeLed led){
 			break;
  8000216:	e00f      	b.n	8000238 <turnOnLight+0xec>
 		}
-
 		default : {
 			HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, GPIO_PIN_RESET);
  8000218:	2200      	movs	r2, #0
@@ -225,8 +222,6 @@ void turnOnLight(enum modeLed led){
  8000240:	40010800 	.word	0x40010800
 
 08000244 <display7SEG>:
-
-
 // Ham led 7 doan
 void display7SEG( int num)
 {
@@ -700,6 +695,7 @@ int main(void)
  800057c:	603b      	str	r3, [r7, #0]
     while (1)
     {
+    	//led 7 doan
     	if (num >= 10) num = 0 ;
  800057e:	683b      	ldr	r3, [r7, #0]
  8000580:	2b09      	cmp	r3, #9
@@ -712,8 +708,8 @@ int main(void)
  800058c:	603a      	str	r2, [r7, #0]
  800058e:	4618      	mov	r0, r3
  8000590:	f7ff fe58 	bl	8000244 <display7SEG>
-
-  	  switch(currentState){
+    	// den giao thong
+  	switch(currentState){
  8000594:	4b2e      	ldr	r3, [pc, #184]	; (8000650 <main+0xec>)
  8000596:	781b      	ldrb	r3, [r3, #0]
  8000598:	2b02      	cmp	r3, #2
@@ -837,7 +833,7 @@ int main(void)
   		  }
   	  }
 
-  	  }
+  	 }
 
   	  HAL_Delay(1000);
  8000644:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
