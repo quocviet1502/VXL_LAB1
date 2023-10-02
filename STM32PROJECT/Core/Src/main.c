@@ -94,7 +94,6 @@ void turnOnLight(enum modeLed led){
 	}
 }
 
-
 // Ham led 7 doan
 void display7SEG( int num)
 {
@@ -252,6 +251,7 @@ int main(void)
   int num = 5;
       while (1)
       {
+    	  //led 7 doan
       	if (num <= 0) num = 5 ;
       	display7SEG( num-- );
 
