@@ -291,7 +291,7 @@ void setNumberOnClock( int num)
 	 {
 		 HAL_GPIO_WritePin( LED_10_GPIO_Port, LED_10_Pin, GPIO_PIN_RESET);
 	 }
-	 else if ( num == 11)
+	  if ( num == 11)
 	 {
 		 HAL_GPIO_WritePin( LED_11_GPIO_Port, LED_11_Pin, GPIO_PIN_RESET);
 	 }
