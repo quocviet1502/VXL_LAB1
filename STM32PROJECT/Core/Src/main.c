@@ -101,6 +101,7 @@ int main(void)
   int count_on = 1 ;
   while (1)
   {
+	  // led red
 	  if (status_led == status_RED)
 	  {
 		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET); // LED_RED turn on
@@ -113,6 +114,7 @@ int main(void)
 			  count_on = 1;
 		  }
 	  }
+	  //led yellow
 	  else if( status_led == status_YELLOW)
 		{
 		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET); // LED_RED turn off
@@ -125,6 +127,7 @@ int main(void)
 			  count_on = 1;
 		  }
 		}
+	  //led green
 	  else if ( status_led == status_GREEN)
 		{
 		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);  // LED_RED turn off
