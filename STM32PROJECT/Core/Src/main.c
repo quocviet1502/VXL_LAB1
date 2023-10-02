@@ -57,7 +57,7 @@ static void MX_GPIO_Init(void);
 // Ham bat lan luot LED
 void turn_onClock( int num )
 {
-	if ( num == 0 || num == 12)
+	if ( num == 0 )
 	{
 		HAL_GPIO_WritePin( LED_0_GPIO_Port, LED_0_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin( LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_SET);
