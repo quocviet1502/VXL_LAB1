@@ -55,7 +55,7 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 // Ham bat lan luot LED
-void turn_onLED( int num )
+void turn_onClock( int num )
 {
 	if ( num == 0 || num == 12)
 	{
@@ -282,7 +282,7 @@ int main(void)
 	  {
 		  num = 0;
 	  }
-	  turn_onLED(num);
+	  turn_onClock(num);
 	  num ++;
 
     /* USER CODE END WHILE */
