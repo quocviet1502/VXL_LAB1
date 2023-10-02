@@ -92,6 +92,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+  //To Do EX3 theo ex2
+  // hoac cung co the lam theo ex4 ( 2 cach)
+
   int led_red = 5;
   int led_yellow = 2;
   int led_green = 3;
