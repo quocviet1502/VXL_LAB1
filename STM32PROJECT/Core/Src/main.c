@@ -351,7 +351,6 @@ void setNumberOffClock( int num)
 
 int seconds = 0, minutes = 0, hours = 0;
 int dem = 0;
-int tmp = -1;
 void displayOnClock(int num){
   if(num <= 12){
     if (num-1 == dem || num-1 == hours) setNumberOnClock(num);
@@ -398,6 +397,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int tmp = -1;
   int count = 1;
   while (1)
   {
