@@ -278,12 +278,11 @@ int main(void)
   int num = 0;
   while (1)
   {
-	  if ( num > 12 )
+	  if ( num >= 12 )
 	  {
 		  num = 0;
 	  }
-	  turn_onClock(num);
-	  num ++;
+	  turn_onClock(num++);
 
     /* USER CODE END WHILE */
 
