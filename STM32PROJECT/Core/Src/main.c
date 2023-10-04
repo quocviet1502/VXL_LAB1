@@ -98,9 +98,9 @@ int main(void)
   int led_red = 5;
   int led_yellow = 2;
   int led_green = 3;
-  int count_on_yellow1 = 1;
+  int count_on_yellow1 = 0;
   int count_on_green1 = 1;
-  int count_on_yellow2 = 1;
+  int count_on_yellow2 = 0;
   int count_on_green2 = 1;
   int status_led = led_red;
   while(1)
@@ -114,7 +114,7 @@ int main(void)
 		  count_on_green2++;
 		  HAL_GPIO_WritePin( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET);
 		  HAL_GPIO_WritePin( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_RESET);
-		  count_on_yellow1 = 1;
+		  count_on_yellow1 = 0;
 	  }
 	   if ( count_on_green2 == led_green)
 		  {
@@ -124,7 +124,6 @@ int main(void)
 
 			  status_led = 1;
 		  }
-
 	   if ( count_on_yellow2 == led_yellow)
 			  {
 
@@ -146,14 +145,13 @@ int main(void)
 			  }
 	   if (count_on_yellow1 == led_yellow)
 			  {
-				  count_on_yellow2 = 1;
+				  count_on_yellow2 = 0;
 				  count_on_green2 = 1;
 				  count_on_green1 = 1;
 				  status_led = led_red;
 			  }
 
 	   HAL_Delay(3000);
-
   }
   /* USER CODE END 3 */
 }
